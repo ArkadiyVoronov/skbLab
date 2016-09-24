@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simple
 {
-    class Game
+    public class Game
     {
         int sideSize;
         int[][] field;
@@ -89,7 +89,7 @@ namespace Simple
             }
         }
     }
-    class Location
+    public class Location
     {
         public int x, y;
         public Location(int x, int y)
