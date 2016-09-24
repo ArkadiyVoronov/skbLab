@@ -83,6 +83,7 @@ namespace Simple
                 Location zeroLoc = GetLocation(0);
                 curNubmerPos[0] = valueLoc;
                 curNubmerPos[value] = zeroLoc;
+                
             }
             else {
                 throw new Exception("Нет соседней свободной клетки");
