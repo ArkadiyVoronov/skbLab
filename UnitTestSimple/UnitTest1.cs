@@ -11,31 +11,11 @@ namespace Simple
         public void TestLocation()
         {
             Game game = new Game(1, 2, 3, 0);
-            Location actualLoc = game.GetLocation(0);
-            Location expectLoc = new Location(1,  1);
-            Assert.AreEqual(expectLoc.x, actualLoc.x);
-            Assert.AreEqual(expectLoc.y, actualLoc.y);
-
-            expectLoc = new Location(0, 0);
-            actualLoc = game.GetLocation(1);
-            Assert.AreEqual(expectLoc.x, actualLoc.x);
-            Assert.AreEqual(expectLoc.y, actualLoc.y);
-
-            expectLoc = new Location(0, 1);
-            actualLoc = game.GetLocation(2);
-            Assert.AreEqual(expectLoc.x, actualLoc.x);
-            Assert.AreEqual(expectLoc.y, actualLoc.y);
-
+            Assert.AreEqual(game[0, 0], 1);
+            Assert.AreEqual(game[1, 1], 0);
         }
         [TestMethod]
-        public void TestIndexator()
-        {
-            Game game = new Game(0, 1, 2, 3);
-            Assert.AreEqual(0, game[0, 0]);
-            Assert.AreEqual(3, game[1, 1]);
-        }
-        [TestMethod]
-        public void TestShift()
+        public void TestBadShift()
         {
             Game game = new Game(0, 1, 2, 3);
             try
@@ -45,5 +25,49 @@ namespace Simple
             }
             catch (Exception) { }
         }
+        [TestMethod]
+        public void TestShift()
+        {
+            Game game = new Game(0, 1, 2, 3);
+            try
+            {
+                game.Shift(1);
+                Assert.AreEqual(game[0, 0], 1);
+            }
+            catch (Exception) { }
+        }
+        [TestMethod]
+        public void Test3by3()
+        {
+            Game game = new Game(0, 1, 2, 3, 4, 5, 6, 7, 8);
+            try
+            {
+                game.Shift(1);
+                game.Shift(4);
+                game.Shift(5);
+                game.Shift(8);
+                Assert.AreEqual(game[1, 1], 0);
+            }
+            catch (Exception) { }
+        }
+        [TestMethod]
+        public void Test4by4()
+        {
+            Game game = new Game(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            try
+            {
+                game.Shift(4);
+                game.Shift(8);
+                game.Shift(9);
+                game.Shift(10);
+                game.Shift(14);
+                game.Shift(13);
+                game.Shift(13);
+                game.Shift(15);
+                Assert.AreEqual(game[3, 3], 0);
+            }
+            catch (Exception) { }
+        }
+
     }
 }

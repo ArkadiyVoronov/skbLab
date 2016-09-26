@@ -1,106 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace Simple
 {
     public class Game
     {
+        int[] values;
+        int[] positions;
         int sideSize;
-        int[][] field;
-        Location[] curNubmerPos;
+        int GetLocation(int value)
+        {
+            return positions[value];
+        }
         public Game(params int[] values)
         {
             sideSize = (int)Math.Sqrt(values.Length);
-            field = new int[sideSize][];
-            curNubmerPos = new Location[values.Length];
-            for (int i = 0; i < sideSize; i++)
+            this.values = values;
+            positions = new int[values.Length];
+            for (int i = 0; i < values.Length; i++)
             {
-                field[i] = new int[sideSize]; 
-                for (int j = 0; j < sideSize; j++)
-                {
-                    field[i][j] = values[sideSize * i + j];
-                    curNubmerPos[values[sideSize * i + j]] = new Location(i, j);
-                }
-            }
-                
-        }
-        public void PrintState()
-        {
-            for (int i = 0; i < sideSize; i++)
-            {
-                for (int j = 0; j < sideSize; j++)
-                {
-                    Console.Write(field[i][j]);
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
+                positions[values[i]] = i; 
+            }            
         }
         public int this[int x, int y]
         {
-            get { return field[x][y]; }
-            set { field[x][y] = value; }
-        }
-        public Location GetLocation(int value)
-        {
-            return curNubmerPos[value];
-        }
+            get { return values[sideSize * x + y]; }
+            private set {
+                values[sideSize * x + y] = value;
+                positions[value] = sideSize * x + y;
+            }
+        }        
         public void Shift(int value)
         {
-            Location valueLoc = GetLocation(value);
-            int x = valueLoc.x;
-            int y = valueLoc.y;
-            bool isCorrect = false;
-            if (x + 1 < sideSize && field[x + 1][y] == 0)
-            {
-                field[x + 1][y] = value;
-                field[x][y] = 0;
-                isCorrect = true;
+            int zeroPos = GetLocation(0);
+            int zeroX = zeroPos / sideSize;
+            int zeroY = zeroPos % sideSize;
+
+            int valPos = GetLocation(value);
+            int valX = valPos / sideSize;
+            int valY = valPos % sideSize;
+
+            if (Math.Abs(valX - zeroX) + Math.Abs(valY - zeroY) == 1){
+                values[zeroPos] = value;
+                values[valPos] = 0;
+                positions[0] = valPos;
+                positions[value] = zeroPos;
             }
-            if (x - 1 >= 0 && field[x - 1][y] == 0)
-            {
-                field[x - 1][y] = value;
-                field[x][y] = 0;
-                isCorrect = true;
-            }
-            if (y + 1 < sideSize && field[x][y + 1] == 0)
-            {
-                field[x][y + 1] = value;
-                field[x][y] = 0;
-                isCorrect = true;
-            }
-            if (y - 1 >= 0 && field[x][y - 1] == 0)
-            {
-                field[x][y - 1] = value;
-                field[x][y] = 0;
-                isCorrect = true;
-            }
-            if (isCorrect)
-            {
-                Location zeroLoc = GetLocation(0);
-                curNubmerPos[0] = valueLoc;
-                curNubmerPos[value] = zeroLoc;
-                
-            }
-            else {
+            else{
                 throw new Exception("Нет соседней свободной клетки");
             }
-        }
-    }
-    public class Location
-    {
-        public int x, y;
-        public Location(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-        public override string ToString() 
-        {
-            return x.ToString() + ' ' + y.ToString();
         }
     }
 }
