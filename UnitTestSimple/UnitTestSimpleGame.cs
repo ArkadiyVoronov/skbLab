@@ -4,28 +4,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Kontur
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTestSimpleGame: UnitTestBaseGame
     {
         [TestMethod]
-        public void TestLocation()
+        override public void TestLocation()
         {
             SimpleGame game = new SimpleGame(1, 2, 3, 0);
             Assert.AreEqual(game[0, 0], 1);
             Assert.AreEqual(game[1, 1], 0);
         }
         [TestMethod]
-        public void TestBadShift()
+        override public void TestBadShift()
         {
             SimpleGame game = new SimpleGame(0, 1, 2, 3);
             try
             {
-                game.Shift(3);
+                game.Shift(1);
+                game.Shift(2);
                 Assert.Fail();
             }
             catch (Exception) { }
         }
         [TestMethod]
-        public void TestShift()
+        override public void TestShift()
         {
             SimpleGame game = new SimpleGame(0, 1, 2, 3);
             try
@@ -36,7 +37,7 @@ namespace Kontur
             catch (Exception) { }
         }
         [TestMethod]
-        public void Test3by3()
+        override public void Test3by3()
         {
             SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
             try
@@ -50,7 +51,7 @@ namespace Kontur
             catch (Exception) { }
         }
         [TestMethod]
-        public void Test4by4()
+        override public void Test4by4()
         {
             SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
             try
@@ -69,4 +70,5 @@ namespace Kontur
         }
 
     }
+    
 }

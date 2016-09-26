@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace Kontur
 {
-    class ImmutableGame : SimpleGame
+    public class ImmutableGame : SimpleGame
     {
+        public ImmutableGame(params int[] values) : base(values)
+        {
+        }
         new public ImmutableGame Shift(int value)
         {
-            return this;
+            ImmutableGame game = new ImmutableGame(base.values);
+            base.Shift(value);
+            return game;
         }
+
     }
 }
