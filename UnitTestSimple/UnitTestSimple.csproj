@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lab\Simple.csproj">
+    <ProjectReference Include="..\lab\Kontur.csproj">
       <Project>{f2463252-9931-440f-b885-b5e82de387e8}</Project>
-      <Name>Simple</Name>
+      <Name>Kontur</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

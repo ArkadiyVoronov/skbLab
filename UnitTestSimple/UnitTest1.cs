@@ -1,8 +1,7 @@
 ﻿using System;
-using Simple;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Simple
+namespace Kontur
 {
     [TestClass]
     public class UnitTest1
@@ -10,14 +9,14 @@ namespace Simple
         [TestMethod]
         public void TestLocation()
         {
-            Game game = new Game(1, 2, 3, 0);
+            SimpleGame game = new SimpleGame(1, 2, 3, 0);
             Assert.AreEqual(game[0, 0], 1);
             Assert.AreEqual(game[1, 1], 0);
         }
         [TestMethod]
         public void TestBadShift()
         {
-            Game game = new Game(0, 1, 2, 3);
+            SimpleGame game = new SimpleGame(0, 1, 2, 3);
             try
             {
                 game.Shift(3);
@@ -28,7 +27,7 @@ namespace Simple
         [TestMethod]
         public void TestShift()
         {
-            Game game = new Game(0, 1, 2, 3);
+            SimpleGame game = new SimpleGame(0, 1, 2, 3);
             try
             {
                 game.Shift(1);
@@ -39,7 +38,7 @@ namespace Simple
         [TestMethod]
         public void Test3by3()
         {
-            Game game = new Game(0, 1, 2, 3, 4, 5, 6, 7, 8);
+            SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
             try
             {
                 game.Shift(1);
@@ -53,7 +52,7 @@ namespace Simple
         [TestMethod]
         public void Test4by4()
         {
-            Game game = new Game(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
             try
             {
                 game.Shift(4);

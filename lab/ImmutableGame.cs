@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Kontur
 {
-    class Program
+    class ImmutableGame : SimpleGame
     {
-        static void Main(string[] args)
+        new public ImmutableGame Shift(int value)
         {
-            
+            return this;
         }
     }
 }

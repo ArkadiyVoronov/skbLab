@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections;
 
-namespace Simple
+namespace Kontur
 {
-    public class Game
+    public class SimpleGame
     {
-        int[] values;
-        int[] positions;
-        int sideSize;
-        int GetLocation(int value)
+        protected int[] values;
+        protected int[] positions;
+        protected int sideSize;
+        protected int GetLocation(int value)
         {
             return positions[value];
         }
-        public Game(params int[] values)
+        public SimpleGame(params int[] values)
         {
             sideSize = (int)Math.Sqrt(values.Length);
-            this.values = values;
+            this.values = new int[values.Length];
+            for(int i = 0;i < values.Length; i++)
+                this.values[i] = values[i];
             positions = new int[values.Length];
             for (int i = 0; i < values.Length; i++)
             {
