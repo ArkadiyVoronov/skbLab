@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Kontur
+{
+    public class MemoryLimitGame : SimpleGame
+    {
+        private LinkedList<int> changes;
+        private SimpleGame game;
+        public MemoryLimitGame(params int[] values)
+        {
+            game = new SimpleGame(values);
+            changes = new LinkedList<int>();
+        }
+        private MemoryLimitGame(SimpleGame game, LinkedList<int> changes, int value)
+        {
+            this.game = game;
+            this.changes = new LinkedList<int>();
+            foreach (var change in changes)
+            {
+                this.changes.AddLast(change);
+            }
+            this.changes.AddLast(value);
+        }
+        new public MemoryLimitGame Shift(int value)
+        {
+            MemoryLimitGame dekor = new MemoryLimitGame(game, changes, value);
+            foreach (var change in dekor.changes)
+            {
+                dekor.game.Shift(change);
+            }
+            for (var node = dekor.changes.Last; node != null; node = node.Previous)
+            {
+                dekor.game.Shift(node.Value);
+            }
+            return dekor;
+        }
+        new public int this[int x, int y]
+        {
+            get
+            {
+                foreach (var change in changes)
+                {
+                    game.Shift(change);
+                }
+                int value = game[x, y];
+                for (var node = changes.Last; node != null; node = node.Previous)
+                {
+                    game.Shift(node.Value);
+                }
+                return value;
+            }
+            
+        }
+    }
+}

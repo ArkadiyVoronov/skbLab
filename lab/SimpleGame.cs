@@ -8,7 +8,7 @@ namespace Kontur
         protected int[] values;
         protected int[] positions;
         protected int sideSize;
-        protected int GetLocation(int value)
+        public int GetLocation(int value)
         {
             return positions[value];
         }
@@ -27,10 +27,6 @@ namespace Kontur
         public int this[int x, int y]
         {
             get { return values[sideSize * x + y]; }
-            private set {
-                values[sideSize * x + y] = value;
-                positions[value] = sideSize * x + y;
-            }
         }        
         public void Shift(int value)
         {
