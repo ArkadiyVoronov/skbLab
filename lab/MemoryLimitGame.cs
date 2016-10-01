@@ -55,5 +55,18 @@ namespace Kontur
             }
             
         }
+        new public int GetLocation(int value)
+        {
+            foreach (var change in changes)
+            {
+                game.Shift(change);
+            }
+            int location = game.GetLocation(value);
+            for (var node = changes.Last; node != null; node = node.Previous)
+            {
+                game.Shift(node.Value);
+            }
+            return location;
+        }
     }
 }
