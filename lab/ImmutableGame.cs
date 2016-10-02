@@ -11,12 +11,16 @@ namespace Kontur
         public ImmutableGame(params int[] values) : base(values)
         {
         }
-        new public ImmutableGame Shift(int value)
+
+        private ImmutableGame(int value, int[] values) : base(values)
         {
-            ImmutableGame game = new ImmutableGame(base.values);
             base.Shift(value);
-            return game;
         }
 
+        public new ImmutableGame Shift(int value)
+        {
+            ImmutableGame game = new ImmutableGame(value, base.values);
+            return game;
+        }
     }
 }

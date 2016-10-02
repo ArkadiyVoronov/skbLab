@@ -8,27 +8,35 @@ namespace Kontur
         protected int[] values;
         protected int[] positions;
         protected int sideSize;
-        public int GetLocation(int value)
-        {
-            return positions[value];
-        }
+
         public SimpleGame(params int[] values)
         {
             sideSize = (int)Math.Sqrt(values.Length);
+            if (sideSize * sideSize != values.Length)
+            {
+                throw new Exception("Поле игры должны быть квадратным");
+            }
             this.values = new int[values.Length];
-            for(int i = 0;i < values.Length; i++)
+            for (int i = 0; i < values.Length; i++)
                 this.values[i] = values[i];
             positions = new int[values.Length];
             for (int i = 0; i < values.Length; i++)
             {
-                positions[values[i]] = i; 
-            }            
+                positions[values[i]] = i;
+            }
         }
-        public int this[int x, int y]
+
+        public virtual int GetLocation(int value)
+        {
+            return positions[value];
+        }
+     
+        public virtual int this[int x, int y]
         {
             get { return values[sideSize * x + y]; }
-        }        
-        public void Shift(int value)
+        }
+
+        public virtual void Shift(int value)
         {
             int zeroPos = GetLocation(0);
             int zeroX = zeroPos / sideSize;
@@ -47,6 +55,17 @@ namespace Kontur
             else{
                 throw new Exception("Нет соседней свободной клетки");
             }
+        }
+
+        public void Print()
+        {
+            for (int i = 0; i < sideSize; i++)
+            {
+                for (int j = 0; j < sideSize; j++)
+                    Console.Write(this[i, j] + " ");
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
     }
 }

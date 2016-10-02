@@ -15,6 +15,7 @@ namespace Kontur
             game = new SimpleGame(values);
             changes = new LinkedList<int>();
         }
+
         private MemoryLimitGame(SimpleGame game, LinkedList<int> changes, int value)
         {
             this.game = game;
@@ -25,7 +26,8 @@ namespace Kontur
             }
             this.changes.AddLast(value);
         }
-        new public MemoryLimitGame Shift(int value)
+
+        public new MemoryLimitGame Shift(int value)
         {
             MemoryLimitGame dekor = new MemoryLimitGame(game, changes, value);
             foreach (var change in dekor.changes)
@@ -38,7 +40,8 @@ namespace Kontur
             }
             return dekor;
         }
-        new public int this[int x, int y]
+
+        public override int this[int x, int y]
         {
             get
             {
@@ -55,7 +58,8 @@ namespace Kontur
             }
             
         }
-        new public int GetLocation(int value)
+
+        public override int GetLocation(int value)
         {
             foreach (var change in changes)
             {

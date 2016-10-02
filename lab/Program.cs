@@ -11,6 +11,7 @@ namespace Kontur
         static void Main(string[] args)
         {
             
+            return;
         }
     }
 }

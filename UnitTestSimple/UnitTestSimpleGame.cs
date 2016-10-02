@@ -13,6 +13,7 @@ namespace Kontur
             Assert.AreEqual(game[0, 0], 1);
             Assert.AreEqual(game[1, 1], 0);
         }
+
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         override public void TestBadShift()
@@ -21,27 +22,26 @@ namespace Kontur
             game.Shift(1);
             game.Shift(2);
         }
+
         [TestMethod]
         override public void TestShift()
         {
             SimpleGame game = new SimpleGame(0, 1, 2, 3);
             game.Shift(1);
-            Assert.AreEqual(game[0, 0], 1);
+            Assert.AreEqual(1, game[0, 0]);
         }
+
         [TestMethod]
         override public void Test3by3()
         {
             SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
-            try
-            {
-                game.Shift(1);
-                game.Shift(4);
-                game.Shift(5);
-                game.Shift(8);
-                Assert.AreEqual(game[1, 1], 0);
-            }
-            catch (Exception) { }
+            game.Shift(1);
+            game.Shift(4);
+            game.Shift(5);
+            game.Shift(8);
+            Assert.AreEqual(0, game[2, 2]);
         }
+
         [TestMethod]
         override public void Test4by4()
         {
