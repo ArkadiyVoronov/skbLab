@@ -7,7 +7,7 @@ namespace Kontur
     public class UnitTestSimpleGame: UnitTestBaseGame
     {
         [TestMethod]
-        override public void TestLocation()
+        public override void TestLocation()
         {
             SimpleGame game = new SimpleGame(1, 2, 3, 0);
             Assert.AreEqual(game[0, 0], 1);

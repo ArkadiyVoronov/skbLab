@@ -21,8 +21,8 @@ namespace Kontur
         {
             ImmutableGame game = new ImmutableGame(0, 1, 2, 3);
 
-            game = game.Shift(1);
-            game = game.Shift(2);
+            game = (ImmutableGame)game.Shift(1);
+            game = (ImmutableGame)game.Shift(2);
 
             Assert.Fail();
         }
@@ -32,7 +32,7 @@ namespace Kontur
         {
             ImmutableGame game = new ImmutableGame(0, 1, 2, 3);
 
-            game = game.Shift(1);
+            game = (ImmutableGame)game.Shift(1);
 
             Assert.AreEqual(1, game[0, 0]);
         }
@@ -42,11 +42,11 @@ namespace Kontur
         {
             ImmutableGame game = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
 
-            game = game.Shift(1);
-            game = game.Shift(4);
-            game = game.Shift(5);
-            ImmutableGame newGame = game.Shift(8);
-            game = game.Shift(8);
+            game = (ImmutableGame)game.Shift(1);
+            game = (ImmutableGame)game.Shift(4);
+            game = (ImmutableGame)game.Shift(5);
+            ImmutableGame newGame = (ImmutableGame)game.Shift(8);
+            game = (ImmutableGame)game.Shift(8);
 
             Assert.AreEqual(0, game[2, 2]);
             Assert.AreEqual(0, newGame[2, 2]);            
@@ -57,14 +57,14 @@ namespace Kontur
         {
             ImmutableGame game = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
            
-            game = game.Shift(4);
-            game = game.Shift(8);
-            game = game.Shift(9);
-            game = game.Shift(10);
-            game = game.Shift(14);
-            game = game.Shift(13);
-            game = game.Shift(13);
-            game = game.Shift(15);
+            game = (ImmutableGame)game.Shift(4);
+            game = (ImmutableGame)game.Shift(8);
+            game = (ImmutableGame)game.Shift(9);
+            game = (ImmutableGame)game.Shift(10);
+            game = (ImmutableGame)game.Shift(14);
+            game = (ImmutableGame)game.Shift(13);
+            game = (ImmutableGame)game.Shift(13);
+            game = (ImmutableGame)game.Shift(15);
 
             Assert.AreEqual(0, game[3, 3]);
         }

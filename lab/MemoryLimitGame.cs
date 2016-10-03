@@ -27,7 +27,7 @@ namespace Kontur
             this.changes.AddLast(value);
         }
 
-        public new MemoryLimitGame Shift(int value)
+        public override Object Shift(int value)
         {
             MemoryLimitGame dekor = new MemoryLimitGame(game, changes, value);
             foreach (var change in dekor.changes)

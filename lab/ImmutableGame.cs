@@ -17,7 +17,7 @@ namespace Kontur
             base.Shift(value);
         }
 
-        public new ImmutableGame Shift(int value)
+        public override Object Shift(int value)
         {
             ImmutableGame game = new ImmutableGame(value, base.values);
             return game;

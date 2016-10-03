@@ -36,8 +36,12 @@ namespace Kontur
             get { return values[sideSize * x + y]; }
         }
 
-        public virtual void Shift(int value)
+        public virtual Object Shift(int value)
         {
+            if (value < 1 || value > sideSize * sideSize - 1)
+            {
+                throw new Exception("Не верное значение.");
+            }
             int zeroPos = GetLocation(0);
             int zeroX = zeroPos / sideSize;
             int zeroY = zeroPos % sideSize;
@@ -51,6 +55,7 @@ namespace Kontur
                 values[valPos] = 0;
                 positions[0] = valPos;
                 positions[value] = zeroPos;
+                return this;
             }
             else{
                 throw new Exception("Нет соседней свободной клетки");
