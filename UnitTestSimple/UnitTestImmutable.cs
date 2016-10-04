@@ -16,7 +16,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(InvalidOperationException))]
         override public void TestBadShift()
         {
             ImmutableGame game = new ImmutableGame(0, 1, 2, 3);

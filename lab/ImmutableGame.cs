@@ -8,18 +8,18 @@ namespace Kontur
 {
     public class ImmutableGame : SimpleGame
     {
-        public ImmutableGame(params int[] values) : base(values)
+        public ImmutableGame(params int[] tiles) : base(tiles)
         {
         }
 
-        private ImmutableGame(int value, int[] values) : base(values)
+        private ImmutableGame(int value, int[] tiles) : base(tiles)
         {
             base.Shift(value);
         }
 
-        public override Object Shift(int value)
+        public override IGame Shift(int tile)
         {
-            ImmutableGame game = new ImmutableGame(value, base.values);
+            ImmutableGame game = new ImmutableGame(tile, base.tiles);
             return game;
         }
     }

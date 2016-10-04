@@ -25,7 +25,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void TRRestBadShift()
         {
             MemoryLimitGame game = new MemoryLimitGame(0, 1, 2, 3);

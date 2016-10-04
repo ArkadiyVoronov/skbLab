@@ -10,26 +10,22 @@ namespace Kontur
     {
         private LinkedList<int> changes;
         private SimpleGame game;
-        public MemoryLimitGame(params int[] values)
+        private MemoryLimitGame(MemoryLimitGame originalGame, int tile)
         {
-            game = new SimpleGame(values);
+            this.game = originalGame.game;
+            this.changes = new LinkedList<int>(originalGame.changes);
+            this.changes.AddLast(tile);
+        }
+
+        public MemoryLimitGame(params int[] tiles)
+        {
+            game = new SimpleGame(tiles);
             changes = new LinkedList<int>();
         }
 
-        private MemoryLimitGame(SimpleGame game, LinkedList<int> changes, int value)
+        public override IGame Shift(int tile)
         {
-            this.game = game;
-            this.changes = new LinkedList<int>();
-            foreach (var change in changes)
-            {
-                this.changes.AddLast(change);
-            }
-            this.changes.AddLast(value);
-        }
-
-        public override Object Shift(int value)
-        {
-            MemoryLimitGame dekor = new MemoryLimitGame(game, changes, value);
+            MemoryLimitGame dekor = new MemoryLimitGame(this, tile);
             foreach (var change in dekor.changes)
             {
                 dekor.game.Shift(change);
@@ -49,23 +45,23 @@ namespace Kontur
                 {
                     game.Shift(change);
                 }
-                int value = game[x, y];
+                int tile = game[x, y];
                 for (var node = changes.Last; node != null; node = node.Previous)
                 {
                     game.Shift(node.Value);
                 }
-                return value;
+                return tile;
             }
             
         }
 
-        public override int GetLocation(int value)
+        public override int GetLocation(int tile)
         {
             foreach (var change in changes)
             {
                 game.Shift(change);
             }
-            int location = game.GetLocation(value);
+            int location = game.GetLocation(tile);
             for (var node = changes.Last; node != null; node = node.Previous)
             {
                 game.Shift(node.Value);
