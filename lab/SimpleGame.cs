@@ -14,7 +14,7 @@ namespace Kontur
             sideSize = (int)Math.Sqrt(tiles.Length);
             if (sideSize * sideSize != tiles.Length)
             {
-                throw new Exception("Поле игры должны быть квадратным");
+                throw new InvalidOperationException("Поле игры должны быть квадратным");
             }
             this.tiles = new int[tiles.Length];
             for (int i = 0; i < tiles.Length; i++)
