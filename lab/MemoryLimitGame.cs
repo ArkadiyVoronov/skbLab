@@ -21,6 +21,7 @@ namespace Kontur
         {
             game = new SimpleGame(tiles);
             changes = new LinkedList<int>();
+            SideSize = game.SideSize;
         }
 
         public override IGame Shift(int tile)
@@ -68,5 +69,6 @@ namespace Kontur
             }
             return location;
         }
+
     }
 }

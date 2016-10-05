@@ -4,33 +4,37 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Kontur
 {
     [TestClass]
-    public class UnitTestSimpleGame: UnitTestGame
+    public class UnitTestSimpleGame
     {
-        [TestMethod]
-        public override void TestIndexator()
-        {
-            IGame game = new SimpleGame(0, 1, 2, 3);
+        protected IGame game;
 
+        [TestInitialize()]
+        virtual public void Initialize()
+        {
+            game = new SimpleGame(0, 1, 2, 3);
+        }
+
+        [TestMethod]
+        virtual public void TestIndexator()
+        {
             int expected = 2;
 
             Assert.AreEqual(expected, game[1, 0]);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
-        public override void TestBadIndexator()    
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public virtual void TestBadIndexator()
         {
-            IGame game = new SimpleGame(0, 1, 2, 3);
 
-            int t = game[3, 0];
+            int t = game[2, 0];
 
             Assert.Fail();
         }
 
         [TestMethod]
-        public override void TestShift()
+        public virtual void TestShift()
         {
-            SimpleGame game = new SimpleGame(0, 1, 2, 3);
 
             game.Shift(1);
             game.Shift(3);
@@ -40,9 +44,8 @@ namespace Kontur
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public override void TestBadShift()
+        public virtual void TestBadShift()
         {
-            IGame game = new SimpleGame(0, 1, 2, 3);
 
             game.Shift(1);
             game.Shift(2);
@@ -51,10 +54,8 @@ namespace Kontur
         }
 
         [TestMethod]
-        public override void TestShiftCircle()
+        public virtual void TestShiftCircle()
         {
-            IGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
-
             game.Shift(1);
             game.Shift(1);
             game.Shift(1);
@@ -64,41 +65,41 @@ namespace Kontur
         }
 
         [TestMethod]
-        public override void Test3by3()
+        public virtual void Test3by3()
         {
-            SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
+            IGame game3by3 = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
 
-            game.Shift(1);
-            game.Shift(4);
-            game.Shift(5);
-            game.Shift(8);
+            game3by3.Shift(1);
+            game3by3.Shift(4);
+            game3by3.Shift(5);
+            game3by3.Shift(8);
 
-            Assert.AreEqual(0, game[2, 2]);
+            Assert.AreEqual(0, game3by3[2, 2]);
         }
 
         [TestMethod]
-        public override void Test4by4()
+        public virtual void Test4by4()
         {
-            SimpleGame game = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
-            
-            game.Shift(4);
-            game.Shift(8);
-            game.Shift(9);
-            game.Shift(10);
-            game.Shift(14);
-            game.Shift(13);
-            game.Shift(13);
-            game.Shift(15);
+            IGame game4by4 = new SimpleGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 
-            Assert.AreEqual(game[3, 3], 0);
+            game4by4.Shift(4);
+            game4by4.Shift(8);
+            game4by4.Shift(9);
+            game4by4.Shift(10);
+            game4by4.Shift(14);
+            game4by4.Shift(13);
+            game4by4.Shift(13);
+            game4by4.Shift(15);
+
+            Assert.AreEqual(game4by4[3, 3], 0);
            
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public override void TestBadInput()
+        public virtual void TestBadInput()
         {
-            IGame game = new SimpleGame(0, 1, 2, 3, 4);
+            IGame gameBad = new SimpleGame(0, 1, 2, 3, 4);
 
             Assert.Fail();
         }

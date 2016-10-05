@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Text;
 
 namespace Kontur
 {
@@ -9,10 +10,23 @@ namespace Kontur
         protected int[] positions;
         protected int sideSize;
 
+        public int SideSize
+        {
+            get
+            {
+                return sideSize;
+            }
+
+            protected set
+            {
+                sideSize = value;
+            }
+        }
+
         public SimpleGame(params int[] tiles)
         {
-            sideSize = (int)Math.Sqrt(tiles.Length);
-            if (sideSize * sideSize != tiles.Length)
+            SideSize = (int)Math.Sqrt(tiles.Length);
+            if (SideSize * SideSize != tiles.Length)
             {
                 throw new InvalidOperationException("Поле игры должны быть квадратным");
             }
@@ -28,27 +42,34 @@ namespace Kontur
 
         public virtual int GetLocation(int tile)
         {
+            if (tile > tiles.Length - 1)
+                throw new ArgumentOutOfRangeException("Плитка отсутствует на карте.");
             return positions[tile];
         }
      
         public virtual int this[int x, int y]
         {
-            get { return tiles[sideSize * x + y]; }
+            get
+            {
+                if(x >= sideSize || y >= sideSize || x < 0 || y < 0)
+                    throw new ArgumentOutOfRangeException("Координаты находятся вне карты.");
+                return tiles[SideSize * x + y];
+            }
         }
 
         public virtual IGame Shift(int tile)
         {
-            if (tile < 1 || tile > sideSize * sideSize - 1)
+            if (tile < 1 || tile > SideSize * SideSize - 1)
             {
                 throw new InvalidOperationException("Не верное значение.");
             }
             int zeroPos = GetLocation(0);
-            int zeroX = zeroPos / sideSize;
-            int zeroY = zeroPos % sideSize;
+            int zeroX = zeroPos / SideSize;
+            int zeroY = zeroPos % SideSize;
 
             int valPos = GetLocation(tile);
-            int valX = valPos / sideSize;
-            int valY = valPos % sideSize;
+            int valX = valPos / SideSize;
+            int valY = valPos % SideSize;
 
             if (Math.Abs(valX - zeroX) + Math.Abs(valY - zeroY) == 1)
             {
@@ -63,16 +84,16 @@ namespace Kontur
                 throw new InvalidOperationException("Нет соседней свободной клетки");
             }
         }
-
-        public void Print()
+        public override string ToString()
         {
-            for (int i = 0; i < sideSize; i++)
+            StringBuilder  res = new StringBuilder("");
+            for (int i = 0; i < this.SideSize; i++)
             {
-                for (int j = 0; j < sideSize; j++)
-                    Console.Write(this[i, j] + " ");
-                Console.WriteLine();
+                for (int j = 0; j < this.SideSize; j++)
+                    res.Insert(res.Length, this[i, j] + " ");
+                res.Insert(res.Length, '\n');
             }
-            Console.WriteLine();
+            return res.ToString();
         }
     }
     

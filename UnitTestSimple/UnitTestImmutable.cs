@@ -4,34 +4,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Kontur
 {
     [TestClass]
-    public class UnitTestImmutableGame: UnitTestGame
+    public class UnitTestImmutableGame: UnitTestSimpleGame
     {
-        [TestMethod]
-        override public void TestIndexator()
+        [TestInitialize()]
+        public override void Initialize()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3);
-
-            int expected = 2;
-
-            Assert.AreEqual(expected, game[1, 0]);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
-        public override void TestBadIndexator()
-        {
-            IGame game = new ImmutableGame(0, 1, 2, 3);
-
-            int t = game[3, 0];
-
-            Assert.Fail();
+            game = new ImmutableGame(0, 1, 2, 3);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        override public void TestBadShift()
+        public override void TestBadShift()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3);
 
             game = game.Shift(1);
             game = game.Shift(2);
@@ -40,20 +24,30 @@ namespace Kontur
         }
 
         [TestMethod]
-        override public void TestShift()
+        public override void TestShift()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3);
-
             game = game.Shift(1);
 
             Assert.AreEqual(1, game[0, 0]);
         }
 
         [TestMethod]
+        public void TestImmutableShift()
+        {
+            IGame game2;
+
+            game = game.Shift(1);
+            game2 = game;
+            game = game.Shift(1);
+
+            Assert.AreEqual(0, game[0, 0]);
+            Assert.AreEqual(1, game2[0, 0]);
+        }
+
+        [TestMethod]
         public override void TestShiftCircle()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
-
+           
             game = game.Shift(1);
             game = game.Shift(1);
             game = game.Shift(1);
@@ -65,40 +59,40 @@ namespace Kontur
         [TestMethod]
         override public void Test3by3()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
+            IGame game3by3 = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8);
 
-            game = game.Shift(1);
-            game = game.Shift(4);
-            game = game.Shift(5);
-            IGame newGame = game.Shift(8);
-            game = game.Shift(8);
+            game3by3 = game3by3.Shift(1);
+            game3by3 = game3by3.Shift(4);
+            game3by3 = game3by3.Shift(5);
+            IGame newGame = game3by3.Shift(8);
+            game3by3 = game3by3.Shift(8);
 
-            Assert.AreEqual(0, game[2, 2]);
+            Assert.AreEqual(0, game3by3[2, 2]);
             Assert.AreEqual(0, newGame[2, 2]);            
         }
 
         [TestMethod]
         override public void Test4by4()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+            IGame game4by4 = new ImmutableGame(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
            
-            game = game.Shift(4);
-            game = game.Shift(8);
-            game = game.Shift(9);
-            game = game.Shift(10);
-            game = game.Shift(14);
-            game = game.Shift(13);
-            game = game.Shift(13);
-            game = game.Shift(15);
+            game4by4 = game4by4.Shift(4);
+            game4by4 = game4by4.Shift(8);
+            game4by4 = game4by4.Shift(9);
+            game4by4 = game4by4.Shift(10);
+            game4by4 = game4by4.Shift(14);
+            game4by4 = game4by4.Shift(13);
+            game4by4 = game4by4.Shift(13);
+            game4by4 = game4by4.Shift(15);
 
-            Assert.AreEqual(0, game[3, 3]);
+            Assert.AreEqual(0, game4by4[3, 3]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public override void TestBadInput()
         {
-            IGame game = new ImmutableGame(0, 1, 2, 3, 4);
+            IGame gameBad = new ImmutableGame(0, 1, 2, 3, 4);
 
             Assert.Fail();
         }

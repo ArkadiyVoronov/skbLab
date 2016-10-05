@@ -10,6 +10,8 @@ namespace Kontur
     {
         static void Main(string[] args)
         {
+            IGame game = new ImmutableGame(0, 1, 2, 3);
+            Console.WriteLine(game.ToString());
             return;
         }
     }

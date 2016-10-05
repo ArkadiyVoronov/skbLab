@@ -52,7 +52,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTestGame.cs" />
     <Compile Include="UnitTestMemoryLimitGames.cs" />
     <Compile Include="UnitTestSimpleGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
