@@ -30,6 +30,18 @@ namespace Kontur
             {
                 throw new InvalidOperationException("Поле игры должны быть квадратным");
             }
+            bool[] existElement = new bool[tiles.Length];
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                if (tiles[i] >= tiles.Length || tiles[i] < 0)
+                    throw new ArgumentException("Не допустимое значение поля.");
+                existElement[tiles[i]] = true;
+            }
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                if (!existElement[i])
+                    throw new ArgumentException("Не допустимое значение поля.");
+            }
             this.tiles = new int[tiles.Length];
             for (int i = 0; i < tiles.Length; i++)
                 this.tiles[i] = tiles[i];
