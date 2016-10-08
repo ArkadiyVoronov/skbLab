@@ -19,7 +19,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        virtual public void TestIndexator()
+        virtual public void AccessByIndexator_game2by2_SuccesAccess()
         {
             int expected = 2;
 
@@ -28,7 +28,7 @@ namespace Kontur
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public virtual void TestBadIndexator()
+        public virtual void AccessByIndexator_game2by2_FailedAccess()
         {
 
             int t = game[2, 0];
@@ -37,7 +37,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        public virtual void TestShift()
+        public virtual void Shift_game2by2_SuccesShift()
         {
 
             game = game.Shift(1);
@@ -48,7 +48,7 @@ namespace Kontur
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public virtual void TestBadShift()
+        public virtual void Shift_game2by2_FailedShift()
         {
             game = game.Shift(3);
 
@@ -56,7 +56,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        public virtual void TestShiftCircle()
+        public virtual void ShiftCircle_game2by2_SuccessShift()
         {
             game = game.Shift(1);
             game = game.Shift(1);
@@ -67,7 +67,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        public virtual void Test3by3()
+        public virtual void CorrectGame_Test3by3_Success()
         {
             game3by3 = game3by3.Shift(1);
             game3by3 = game3by3.Shift(4);
@@ -78,7 +78,7 @@ namespace Kontur
         }
 
         [TestMethod]
-        public virtual void Test4by4()
+        public virtual void CorrectGame_Test4by4_Success()
         {
             game4by4 = game4by4.Shift(4);
             game4by4 = game4by4.Shift(8);
@@ -95,14 +95,14 @@ namespace Kontur
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public virtual void TestBadInputMoreArgument()
+        public virtual void BadInput_MoreArgument_Failed()
         {
             IGame gameBad = new SimpleGame(0, 1, 2, 3, 4);
 
             Assert.Fail();
         }
 
-        public virtual void TestBadInputDublication()
+        public virtual void BadInput_Duplicate_Failed()
         {
             IGame gameBad = new SimpleGame(0, 1, 2, 1);
 

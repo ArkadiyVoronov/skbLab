@@ -16,14 +16,14 @@ namespace Kontur
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public override void TestBadInputMoreArgument()
+        public override void BadInput_MoreArgument_Failed()
         {
             IGame gameBad = new ImmutableGame(0, 1, 2, 3, 4);
 
             Assert.Fail();
         }
 
-        public override void TestBadInputDublication()
+        public override void BadInput_Duplicate_Failed()
         {
             IGame gameBad = new ImmutableGame(0, 1, 2, 1);
 
